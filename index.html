@@ -13,7 +13,9 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://gwyneththompson.com/">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://gwyneththompson.com/gtheadshot.jpg">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://gwyneththompson.com/gtheadshot.jpg">
 <meta name="geo.region" content="US-LA">
 <meta name="geo.placename" content="Metairie">
 <script type="application/ld+json">
@@ -25,8 +27,10 @@
   "alternateName": "Gwyneth Thompson Realtor",
   "description": "Licensed Realtor with eXp Realty serving Jefferson Parish, St. Charles Parish, and Greater New Orleans. First-time buyers, investors, luxury homes. NOMAR Top Producer.",
   "url": "https://gwyneththompson.com/",
+  "image": "https://gwyneththompson.com/gtheadshot.jpg",
   "telephone": "+15044423296",
   "jobTitle": "Realtor",
+  "hasCredential": "Louisiana Real Estate License #995717102",
   "worksFor": {
     "@type": "RealEstateAgent",
     "name": "eXp Realty",
@@ -132,7 +136,14 @@
   .panel:hover { transform: translateY(0) scale(1.02); box-shadow: 0 20px 50px rgba(10,51,35,0.25); }
   .panel.in:hover { transform: scale(1.02); }
   .panel-name { background: var(--dark-green); min-height: 280px; justify-content: space-between; }
-  .panel-headshot { background: var(--wine); min-height: 220px; }
+  .panel-headshot {
+    background-color: var(--wine);
+    background-image: linear-gradient(to top, rgba(107,32,53,0.55) 0%, rgba(107,32,53,0.05) 40%, rgba(107,32,53,0) 70%), url('gtheadshot.jpg');
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    min-height: 220px;
+  }
   .panel-property-1 { background: var(--earth); min-height: 160px; }
   .panel-tagline { background: var(--wine); min-height: 260px; cursor: default; }
   .panel-tagline:hover { transform: translateY(0) scale(1); box-shadow: none; }
@@ -218,6 +229,60 @@
     .hero { padding: 1.5rem 0.875rem 2rem; }
     .panel { padding: 1.25rem; }
     .panel-name { min-height: 220px; }
+  }
+
+  /* ==================== ABOUT ==================== */
+  .about {
+    background: var(--beige);
+    padding: 5rem 1.25rem;
+  }
+  .about-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    align-items: center;
+  }
+  @media (min-width: 820px) {
+    .about-inner { grid-template-columns: 5fr 7fr; gap: 4rem; }
+  }
+  .about-photo {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    object-position: center top;
+    background: var(--wine);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .about-photo.in { opacity: 1; transform: translateY(0); }
+  .about-body {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease 0.15s, transform 0.8s ease 0.15s;
+  }
+  .about-body.in { opacity: 1; transform: translateY(0); }
+  .about-body h2 {
+    font-size: clamp(2rem, 4.5vw, 2.75rem);
+    color: var(--dark-green);
+    margin-top: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+  .about-lede {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-style: italic;
+    font-size: clamp(1.2rem, 2.2vw, 1.5rem);
+    color: var(--dark-green);
+    line-height: 1.4;
+    margin-bottom: 1.25rem;
+  }
+  .about-text {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    color: var(--ink);
+    line-height: 1.65;
   }
 
   /* ==================== RECENT SALES ==================== */
@@ -386,14 +451,51 @@
     padding-bottom: 0.15rem;
   }
   .contact-phone:hover { border-color: var(--cream); }
-  .contact-email {
+  .contact-form { margin-top: 0.75rem; display: flex; flex-direction: column; gap: 0.85rem; }
+  .contact-form label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
     display: block;
-    font-family: 'Playfair Display', Georgia, serif;
-    font-size: 1.25rem;
-    color: var(--cream);
-    margin-top: 0.5rem;
-    word-break: break-word;
+    margin-bottom: 0.3rem;
   }
+  .contact-form input,
+  .contact-form textarea {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(240,235,216,0.35);
+    color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    padding: 0.5rem 0;
+    outline: none;
+    transition: border-color 0.2s ease;
+    resize: vertical;
+  }
+  .contact-form input:focus,
+  .contact-form textarea:focus { border-bottom-color: var(--gold); }
+  .contact-form input::placeholder,
+  .contact-form textarea::placeholder { color: rgba(240,235,216,0.45); }
+  .contact-form textarea { min-height: 80px; line-height: 1.4; }
+  .contact-form button {
+    align-self: flex-start;
+    margin-top: 0.5rem;
+    background: var(--cream);
+    color: var(--wine);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    font-size: 0.9rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.85rem 1.75rem;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  .contact-form button:hover { background: var(--gold); color: var(--dark-green); }
   .social-list {
     list-style: none;
     margin-top: 0.75rem;
@@ -481,7 +583,7 @@
       transition-duration: 0.001ms !important;
       scroll-behavior: auto !important;
     }
-    .panel, .sale-card, .testimonial-quote, .contact { opacity: 1; transform: none; }
+    .panel, .about-photo, .about-body, .sale-card, .testimonial-quote, .contact { opacity: 1; transform: none; }
   }
 </style>
 </head>
@@ -493,8 +595,7 @@
   <section class="hero" aria-label="Introduction">
     <div class="collage">
 
-      <a href="#about-jump" class="panel panel-name" data-stagger="0">
-        <!-- [AWAITING BIO FROM GWYNETH] -->
+      <a href="#about" class="panel panel-name" data-stagger="0">
         <span class="panel-small-label">Realtor &middot; eXp Realty &middot; The TK Group</span>
         <div>
           <h1>Gwyneth<br>Thompson</h1>
@@ -503,7 +604,6 @@
       </a>
 
       <a href="https://www.instagram.com/helfinagwyn/" target="_blank" rel="noopener" class="panel panel-headshot" data-stagger="1" aria-label="Visit Gwyneth on Instagram">
-        <!-- Replace with headshot img -->
         <span class="panel-small-label">@helfinagwyn</span>
       </a>
 
@@ -512,7 +612,7 @@
         <span class="panel-small-label">Recent Sales</span>
       </a>
 
-      <div class="panel panel-tagline" data-stagger="3" id="about-jump">
+      <div class="panel panel-tagline" data-stagger="3">
         <div>
           <div class="meta">Jefferson Parish &middot; Greater New Orleans</div>
           <p class="quote">The agent who answers at midnight.</p>
@@ -531,6 +631,19 @@
         <span class="panel-small-label">Let's Talk &rarr;</span>
       </a>
 
+    </div>
+  </section>
+
+  <!-- ==================== ABOUT ==================== -->
+  <section class="about" id="about" aria-label="About Gwyneth">
+    <div class="about-inner">
+      <img class="about-photo" src="gtheadshot.jpg" alt="Gwyneth Thompson, Realtor in Jefferson Parish and Greater New Orleans" loading="lazy" width="400" height="500">
+      <div class="about-body">
+        <div class="label">About Gwyneth</div>
+        <h2>The Realtor I wish I had.</h2>
+        <p class="about-lede">The process of purchasing or listing your home is anything but simple.</p>
+        <p class="about-text">This is why I became a Realtor: to educate and guide my client through every step of the process. I strive to be the Realtor I wish I had when I purchased my first home. With a background as a real estate investor, I bring firsthand knowledge of what it takes to make smart, strategic moves in the market. Combined with years of experience in customer service, I understand how to listen, communicate, and deliver results. I'd love the opportunity to earn your trust and work hard to help you achieve your real estate goals.</p>
+      </div>
     </div>
   </section>
 
@@ -617,12 +730,27 @@
           <div class="label">Call or Text</div>
           <a href="tel:+15044423296" class="contact-phone">(504) 442-3296</a>
 
-          <div class="label" style="margin-top:1.75rem;">Email</div>
+          <div class="label" style="margin-top:1.75rem;">Send a Message</div>
           <!-- [CONFIRM EMAIL -- gwyneth@gwyneththompson.com or existing] -->
-          <a href="mailto:gwyneth@gwyneththompson.com" class="contact-email">gwyneth@gwyneththompson.com</a>
+          <!-- Replace YOUR_FORM_ID with Formspree endpoint once provisioned -->
+          <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+            <div>
+              <label for="cf-name">Name</label>
+              <input id="cf-name" type="text" name="name" placeholder="Your name" required>
+            </div>
+            <div>
+              <label for="cf-contact">Phone or Email</label>
+              <input id="cf-contact" type="text" name="contact" placeholder="(504) 555-0123 or you@email.com" required>
+            </div>
+            <div>
+              <label for="cf-message">Message</label>
+              <textarea id="cf-message" name="message" placeholder="Looking to buy, sell, or just have questions?" required></textarea>
+            </div>
+            <button type="submit">Send</button>
+          </form>
 
           <!-- Replace with Calendly URL -->
-          <a href="#" class="cta">Schedule a Consultation</a>
+          <a href="#" class="cta" style="margin-top:1.5rem;">Schedule a Consultation</a>
         </div>
 
         <div class="contact-block">
@@ -654,9 +782,7 @@
       </div>
 
       <p class="compliance">
-        Gwyneth Thompson, Realtor, eXp Realty, The TK Group.
-        <!-- [CONFIRM LICENSE NUMBER FROM GWYNETH] -->
-        License # [PENDING].
+        Gwyneth Thompson, Realtor, eXp Realty, The TK Group. License #995717102.
         Licensed in Louisiana. All information deemed reliable but not guaranteed.
       </p>
     </div>
@@ -668,15 +794,16 @@
 <footer>
   <div class="footer-inner">
     <div>
-      <div class="footer-brand">Gwyneth Thompson, Realtor</div>
+      <div class="footer-brand">Gwyneth Thompson, Realtor, eXp Realty, The TK Group</div>
       <div class="footer-meta">
-        eXp Realty &middot; The TK Group<br>
-        <!-- [CONFIRM LICENSE NUMBER FROM GWYNETH] -->
-        Louisiana License # [PENDING]<br>
+        Louisiana License #995717102 &middot; Office: <a href="tel:+13374557726">(337) 455-7726</a><br>
         <a href="https://thetkgroup.exprealty.com/agents/1967648/Gwyneth+Thompson" target="_blank" rel="noopener">eXp Realty Agent Profile</a>
         <div class="footer-eho">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2 12h3v8h6v-6h2v6h6v-8h3L12 3zm0 4.5c1.4 0 2.5 1.1 2.5 2.5S13.4 12.5 12 12.5 9.5 11.4 9.5 10 10.6 7.5 12 7.5z"/></svg>
           Equal Housing Opportunity
+        </div>
+        <div style="margin-top:0.5rem; opacity:0.7; font-size:0.72rem; line-height:1.6; max-width:520px;">
+          We are pledged to the letter and spirit of U.S. policy for the achievement of equal housing opportunity throughout the Nation. We encourage and support an affirmative advertising and marketing program in which there are no barriers to obtaining housing because of race, color, religion, sex, handicap, familial status, or national origin.
         </div>
       </div>
     </div>
@@ -692,7 +819,7 @@
     var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     if (prefersReduced || !('IntersectionObserver' in window)) {
-      document.querySelectorAll('.panel, .sale-card, .testimonial-quote, .contact').forEach(function(el) {
+      document.querySelectorAll('.panel, .about-photo, .about-body, .sale-card, .testimonial-quote, .contact').forEach(function(el) {
         el.classList.add('in');
       });
       return;
@@ -715,7 +842,7 @@
       });
     }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
 
-    document.querySelectorAll('.sale-card, .testimonial-quote, .contact').forEach(function(el) {
+    document.querySelectorAll('.about-photo, .about-body, .sale-card, .testimonial-quote, .contact').forEach(function(el) {
       io.observe(el);
     });
   })();
