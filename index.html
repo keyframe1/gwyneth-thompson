@@ -136,14 +136,7 @@
   .panel:hover { transform: translateY(0) scale(1.02); box-shadow: 0 20px 50px rgba(10,51,35,0.25); }
   .panel.in:hover { transform: scale(1.02); }
   .panel-name { background: var(--dark-green); min-height: 280px; justify-content: space-between; }
-  .panel-headshot {
-    background-color: var(--wine);
-    background-image: linear-gradient(to top, rgba(107,32,53,0.55) 0%, rgba(107,32,53,0.05) 40%, rgba(107,32,53,0) 70%), url('gtheadshot.jpg');
-    background-size: cover;
-    background-position: center top;
-    background-repeat: no-repeat;
-    min-height: 220px;
-  }
+  .panel-headshot { background: var(--wine); min-height: 220px; }
   .panel-property-1 { background: var(--earth); min-height: 160px; }
   .panel-tagline { background: var(--wine); min-height: 260px; cursor: default; }
   .panel-tagline:hover { transform: translateY(0) scale(1); box-shadow: none; }
@@ -207,7 +200,7 @@
     .panel-name        { grid-column: 1 / 8;   grid-row: 1 / 5; min-height: 0; }
     .panel-headshot    { grid-column: 8 / 13;  grid-row: 1 / 4; min-height: 0; }
     .panel-property-1  { grid-column: 9 / 13;  grid-row: 4 / 6; min-height: 0; }
-    .panel-tagline     { grid-column: 3 / 10;  grid-row: 5 / 9; min-height: 0; }
+    .panel-tagline     { grid-column: 2 / 9;   grid-row: 5 / 9; min-height: 0; }
     .panel-property-2  { grid-column: 1 / 4;   grid-row: 9 / 12; min-height: 0; }
     .panel-property-3  { grid-column: 5 / 13;  grid-row: 9 / 12; min-height: 0; }
   }
@@ -297,6 +290,16 @@
     color: var(--cream);
     margin-top: 0.75rem;
     margin-bottom: 3rem;
+  }
+  h2.section-heading {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin: 0 0 2.5rem;
+    line-height: 1;
   }
   .sales-grid {
     display: grid;
@@ -615,8 +618,7 @@
       <div class="panel panel-tagline" data-stagger="3">
         <div>
           <div class="meta">Jefferson Parish &middot; Greater New Orleans</div>
-          <p class="quote">The agent who answers at midnight.</p>
-          <div class="meta" style="margin-top:0.25rem;">First-time buyers &middot; Investors &middot; Luxury</div>
+          <div class="meta" style="margin-top:0.5rem;">First-time buyers &middot; Investors &middot; Luxury</div>
           <a href="tel:+15044423296" class="phone">(504) 442-3296</a>
         </div>
       </div>
@@ -639,8 +641,7 @@
     <div class="about-inner">
       <img class="about-photo" src="gtheadshot.jpg" alt="Gwyneth Thompson, Realtor in Jefferson Parish and Greater New Orleans" loading="lazy" width="400" height="500">
       <div class="about-body">
-        <div class="label">About Gwyneth</div>
-        <h2>The Realtor I wish I had.</h2>
+        <h2 class="section-heading">About Gwyneth</h2>
         <p class="about-lede">The process of purchasing or listing your home is anything but simple.</p>
         <p class="about-text">This is why I became a Realtor: to educate and guide my client through every step of the process. I strive to be the Realtor I wish I had when I purchased my first home. With a background as a real estate investor, I bring firsthand knowledge of what it takes to make smart, strategic moves in the market. Combined with years of experience in customer service, I understand how to listen, communicate, and deliver results. I'd love the opportunity to earn your trust and work hard to help you achieve your real estate goals.</p>
       </div>
@@ -650,8 +651,7 @@
   <!-- ==================== RECENT SALES ==================== -->
   <section class="sales" id="recent-sales" aria-label="Recent sales">
     <div class="sales-inner">
-      <div class="label">Recent Sales</div>
-      <h2>Closings, recently.</h2>
+      <h2 class="section-heading">Recent Sales</h2>
       <div class="sales-grid">
 
         <article class="sale-card">
@@ -702,8 +702,7 @@
   <!-- ==================== AREAS SERVED ==================== -->
   <section class="areas" aria-label="Areas served">
     <div class="areas-inner">
-      <div class="label">Areas Served</div>
-      <h2>Where I work.</h2>
+      <h2 class="section-heading">Areas Served</h2>
       <div class="areas-grid">
         <div class="area-item">Jefferson Parish</div>
         <div class="area-item">St. Charles Parish</div>
