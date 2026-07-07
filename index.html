@@ -13,9 +13,12 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://gwyneththompson.com/">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://gwyneththompson.com/gtheadshot.jpg">
+<meta property="og:image" content="https://gwyneththompson.com/public/media/og-card.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Gwyneth Thompson, Realtor with Nonnie and Team Real Estate in Metairie, Louisiana">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://gwyneththompson.com/gtheadshot.jpg">
+<meta name="twitter:image" content="https://gwyneththompson.com/public/media/og-card.jpg">
 <meta name="geo.region" content="US-LA">
 <meta name="geo.placename" content="Metairie">
 <script type="application/ld+json">
@@ -27,7 +30,7 @@
   "alternateName": "Gwyneth Thompson Realtor",
   "description": "Licensed Realtor with Nonnie and Team at eXp Realty serving Jefferson Parish, St. Charles Parish, and Greater New Orleans. First-time buyers, investors, luxury homes. NOMAR Top Producer.",
   "url": "https://gwyneththompson.com/",
-  "image": "https://gwyneththompson.com/gtheadshot.jpg",
+  "image": "https://gwyneththompson.com/public/media/gwyneth-headshot.jpg",
   "telephone": "+15044629772",
   "jobTitle": "Realtor",
   "hasCredential": "Louisiana Real Estate License #995717102",
@@ -136,7 +139,31 @@
   .panel:hover { transform: translateY(0) scale(1.02); box-shadow: 0 20px 50px rgba(10,51,35,0.25); }
   .panel.in:hover { transform: scale(1.02); }
   .panel-name { background: var(--dark-green); min-height: 280px; justify-content: space-between; }
-  .panel-headshot { background: var(--wine); min-height: 220px; }
+  .panel-headshot {
+    background-color: var(--wine);
+    background-image: url('public/media/gwyneth-hero-poster.jpg');
+    min-height: 220px;
+  }
+  /* Hero supercut lives inside the headshot panel */
+  .hero-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 0;
+    border: 0;
+    background: var(--wine);
+  }
+  .panel-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(155deg, rgba(107,32,53,0.18) 0%, rgba(10,51,35,0.08) 42%, rgba(10,51,35,0.58) 100%);
+  }
+  .panel-headshot .panel-small-label { position: relative; z-index: 2; }
   .panel-property-1 { background: var(--earth); min-height: 160px; }
   .panel-tagline { background: var(--wine); min-height: 260px; cursor: default; }
   .panel-tagline:hover { transform: translateY(0) scale(1); box-shadow: none; }
@@ -619,6 +646,7 @@
       scroll-behavior: auto !important;
     }
     .panel, .about-photo, .about-body, .sale-card, .testimonial-quote, .contact { opacity: 1; transform: none; }
+    .hero-video { display: none; }
   }
 </style>
 </head>
@@ -639,6 +667,12 @@
       </a>
 
       <a href="https://www.instagram.com/helfinagwyn/" target="_blank" rel="noopener" class="panel panel-headshot" data-stagger="1" aria-label="Visit Gwyneth on Instagram">
+        <video class="hero-video" autoplay muted loop playsinline preload="metadata"
+               poster="public/media/gwyneth-hero-poster.jpg" aria-hidden="true">
+          <source src="public/media/gwyneth-hero.webm" type="video/webm">
+          <source src="public/media/gwyneth-hero.mp4" type="video/mp4">
+        </video>
+        <span class="panel-overlay" aria-hidden="true"></span>
         <span class="panel-small-label">@helfinagwyn</span>
       </a>
 
@@ -662,7 +696,7 @@
 
       <a href="#contact" class="panel panel-property-3" data-stagger="5" aria-label="Get in touch">
         <!-- Replace with property photo -->
-        <span class="panel-small-label">Let's Talk &rarr;</span>
+        <span class="panel-small-label">Let's Talk</span>
       </a>
 
     </div>
@@ -671,7 +705,7 @@
   <!-- ==================== ABOUT ==================== -->
   <section class="about" id="about" aria-label="About Gwyneth">
     <div class="about-inner">
-      <img class="about-photo" src="gtheadshot.jpg" alt="Gwyneth Thompson, Realtor in Jefferson Parish and Greater New Orleans" loading="lazy" width="400" height="500">
+      <img class="about-photo" src="public/media/gwyneth-headshot.jpg" alt="Gwyneth Thompson, Realtor with Nonnie and Team Real Estate in Metairie, Louisiana" loading="lazy" width="960" height="1200">
       <div class="about-body">
         <h2 class="section-heading">About Gwyneth</h2>
         <p class="about-lede">The process of purchasing or listing your home is anything but simple.</p>
@@ -855,6 +889,16 @@
 <script>
   (function() {
     var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Reduced-motion: fully unload the hero video so only the poster shows (no autoplay, no download).
+    var heroVideo = document.querySelector('.hero-video');
+    if (heroVideo && prefersReduced) {
+      try { heroVideo.pause(); } catch (e) {}
+      while (heroVideo.firstChild) { heroVideo.removeChild(heroVideo.firstChild); }
+      heroVideo.removeAttribute('autoplay');
+      try { heroVideo.load(); } catch (e) {}
+      heroVideo.remove();
+    }
 
     if (prefersReduced || !('IntersectionObserver' in window)) {
       document.querySelectorAll('.panel, .about-photo, .about-body, .sale-card, .testimonial-quote, .contact').forEach(function(el) {
