@@ -1,0 +1,23 @@
+# --- Raw source media (large camera originals) ---
+# Do NOT commit these. The graded, web-optimized deliverables live in public/media/.
+# 4K HEVC video originals (Samsung S25 Ultra, ~20-190 MB each)
+20260629_*.mp4
+20260630_*.mp4
+# Raw still frames / photos pulled off the phone
+20260629_*.jpg
+20260630_*.jpg
+# Raw studio headshot originals (~12-17 MB each)
+IMG_*.jpg
+# Source logo original
+*.jfif
+
+# --- Intermediates / scratch (should never be here, but just in case) ---
+*.mov
+master.mp4
+*-passlog*
+ffmpeg2pass-*
+
+# --- Local tooling / OS cruft ---
+.claude/
+.DS_Store
+Thumbs.db
