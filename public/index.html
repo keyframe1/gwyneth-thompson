@@ -105,46 +105,19 @@
     color: var(--gold);
   }
 
-  /* ==================== HERO COLLAGE ==================== */
+  /* ==================== HERO: VIDEO BEHIND GLASS COLLAGE ==================== */
   .hero {
-    background: var(--beige);
-    padding: 2rem 1.25rem 3rem;
-    min-height: 100vh;
-    position: relative;
-  }
-  .collage {
-    max-width: 1280px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-  .panel {
     position: relative;
     overflow: hidden;
+    /* Poster doubles as the pre-load / no-video / reduced-motion backdrop */
+    background: var(--dark-green) url('/media/gwyneth-hero-poster.jpg') center / cover no-repeat;
+    padding: 2rem 1.25rem 3rem;
+    min-height: 100vh;
+    min-height: 100svh;
     display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 1.5rem;
-    color: var(--cream);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    opacity: 0;
-    transform: translateY(20px);
-    will-change: transform, opacity;
-    background-size: cover;
-    background-position: center;
-    cursor: pointer;
+    align-items: center;
   }
-  .panel.in { opacity: 1; transform: translateY(0); }
-  .panel:hover { transform: translateY(0) scale(1.02); box-shadow: 0 20px 50px rgba(10,51,35,0.25); }
-  .panel.in:hover { transform: scale(1.02); }
-  .panel-name { background: var(--dark-green); min-height: 280px; justify-content: space-between; }
-  .panel-headshot {
-    background-color: var(--wine);
-    background-image: url('/media/gwyneth-hero-poster.jpg');
-    min-height: 220px;
-  }
-  /* Hero supercut lives inside the headshot panel */
+  /* Full-bleed supercut behind everything */
   .hero-video {
     position: absolute;
     inset: 0;
@@ -154,22 +127,84 @@
     object-position: center;
     z-index: 0;
     border: 0;
-    background: var(--wine);
   }
-  .panel-overlay {
+  /* Darkening layer between video and glass so text never flickers illegible */
+  .hero-tint {
     position: absolute;
     inset: 0;
     z-index: 1;
     pointer-events: none;
-    background: linear-gradient(155deg, rgba(107,32,53,0.18) 0%, rgba(10,51,35,0.08) 42%, rgba(10,51,35,0.58) 100%);
+    background: linear-gradient(160deg, rgba(10,51,35,0.50) 0%, rgba(17,17,17,0.35) 48%, rgba(10,51,35,0.62) 100%);
   }
-  .panel-headshot .panel-small-label { position: relative; z-index: 2; }
-  .panel-property-1 { background: var(--earth); min-height: 160px; }
-  .panel-tagline { background: var(--wine); min-height: 260px; cursor: default; }
-  .panel-tagline:hover { transform: translateY(0) scale(1); box-shadow: none; }
+  .collage {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  /* Frosted-glass tile: palette color survives as a translucent tint */
+  .panel {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1.5rem;
+    color: var(--cream);
+    border: 1px solid rgba(255,255,255,0.14);
+    backdrop-filter: blur(14px) saturate(120%);
+    -webkit-backdrop-filter: blur(14px) saturate(120%);
+    box-shadow: 0 12px 40px rgba(10,51,35,0.22);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    opacity: 0;
+    transform: translateY(20px);
+    will-change: transform, opacity;
+    cursor: pointer;
+  }
+  .panel.in { opacity: 1; transform: translateY(0); }
+  .panel:hover { transform: translateY(0) scale(1.02); box-shadow: 0 20px 50px rgba(10,51,35,0.35); }
+  .panel.in:hover { transform: scale(1.02); }
+  .panel-name       { background: rgba(10,51,35,0.50);   min-height: 280px; justify-content: space-between; }
+  .panel-property-1 { background: rgba(176,104,48,0.50); min-height: 160px; }
+  .panel-tagline    { background: rgba(107,32,53,0.55);  min-height: 260px; cursor: default; }
+  .panel-tagline:hover { transform: translateY(0) scale(1); box-shadow: 0 12px 40px rgba(10,51,35,0.22); }
   .panel-tagline.in:hover { transform: scale(1); }
-  .panel-property-2 { background: var(--dark-green); min-height: 220px; }
-  .panel-property-3 { background: var(--moss); min-height: 220px; }
+  .panel-property-2 { background: rgba(10,51,35,0.45);   min-height: 220px; }
+  /* Moss is the lightest tint: higher alpha so cream text stays clean */
+  .panel-property-3 { background: rgba(131,153,88,0.62); min-height: 220px; }
+  /* Instagram handle survives as a small glass chip, no longer a video box */
+  .ig-chip {
+    justify-self: end;
+    align-self: start;
+    display: inline-flex;
+    align-items: center;
+    padding: 0.55rem 0.95rem;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cream);
+    background: rgba(10,51,35,0.38);
+    border: 1px solid rgba(255,255,255,0.18);
+    backdrop-filter: blur(10px) saturate(120%);
+    -webkit-backdrop-filter: blur(10px) saturate(120%);
+    opacity: 0;
+    transition: opacity 0.6s ease, background 0.2s ease;
+  }
+  .ig-chip.in { opacity: 1; }
+  .ig-chip:hover { background: rgba(10,51,35,0.6); }
+  /* No backdrop-filter support: degrade to the old solid-collage look */
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .panel-name, .panel-property-2 { background: var(--dark-green); }
+    .panel-tagline { background: var(--wine); }
+    .panel-property-1 { background: var(--earth); }
+    .panel-property-3 { background: var(--moss); }
+    .ig-chip { background: rgba(10,51,35,0.85); }
+  }
 
   .panel-name h1 {
     font-size: clamp(2.5rem, 9vw, 5.5rem);
@@ -213,10 +248,12 @@
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--cream);
-    opacity: 0.85;
+    opacity: 0.9;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
   }
 
-  /* Desktop collage grid */
+  /* Desktop collage grid: glass tiles staggered so the video shows
+     through the open right-hand areas as well as through the glass */
   @media (min-width: 768px) {
     .hero { padding: 3rem 2rem 4rem; }
     .collage {
@@ -224,36 +261,37 @@
       grid-auto-rows: 70px;
       gap: 1.25rem;
     }
-    /* Video is a large right-column co-anchor to the name block; accent
-       tiles tuck around them so the rectangle fills with no dead quadrant. */
     .panel-name        { grid-column: 1 / 8;   grid-row: 1 / 5;  min-height: 0; }
-    .panel-headshot    { grid-column: 8 / 13;  grid-row: 1 / 6;  min-height: 0; }
-    .panel-tagline     { grid-column: 1 / 6;   grid-row: 5 / 8;  min-height: 0; }
-    .panel-property-1  { grid-column: 6 / 8;   grid-row: 5 / 8;  min-height: 0; }
-    .panel-property-2  { grid-column: 8 / 11;  grid-row: 6 / 8;  min-height: 0; }
-    .panel-property-3  { grid-column: 11 / 13; grid-row: 6 / 8;  min-height: 0; }
+    .ig-chip           { grid-column: 10 / 13; grid-row: 1 / 2; }
+    .panel-tagline     { grid-column: 8 / 13;  grid-row: 3 / 6;  min-height: 0; }
+    .panel-property-1  { grid-column: 1 / 4;   grid-row: 5 / 7;  min-height: 0; }
+    .panel-property-2  { grid-column: 4 / 6;   grid-row: 5 / 7;  min-height: 0; }
+    .panel-property-3  { grid-column: 6 / 8;   grid-row: 5 / 7;  min-height: 0; }
   }
   @media (min-width: 1024px) {
     .collage { grid-auto-rows: 84px; gap: 1.5rem; }
   }
 
-  /* Mobile stacked layout */
+  /* Mobile stacked layout: hero sized by its content, not forced to a
+     full screen; video is unloaded by JS on phones (poster-through-glass) */
   @media (max-width: 767px) {
+    .hero { min-height: 0; padding: 1.75rem 1rem 2.25rem; }
+    .panel {
+      backdrop-filter: blur(10px) saturate(120%);
+      -webkit-backdrop-filter: blur(10px) saturate(120%);
+    }
     .collage { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
-    /* Video goes full-width and featured; wine/phone block sits right under
-       it; the three accent tiles wrap up the stack. order keeps the flow
-       clean with no empty half-cells. */
-    .panel-name       { grid-column: 1 / 3; order: 1; }
-    .panel-headshot   { grid-column: 1 / 3; order: 2; min-height: 300px; }
-    .panel-tagline    { grid-column: 1 / 3; order: 3; padding: 1.75rem 1.5rem; }
-    .panel-property-1 { grid-column: 1 / 2; order: 4; min-height: 150px; }
-    .panel-property-2 { grid-column: 2 / 3; order: 5; min-height: 150px; }
-    .panel-property-3 { grid-column: 1 / 3; order: 6; min-height: 130px; }
+    .panel-name       { grid-column: 1 / 3; order: 1; min-height: 230px; }
+    .panel-tagline    { grid-column: 1 / 3; order: 2; padding: 1.75rem 1.5rem; min-height: 0; }
+    .panel-property-1 { grid-column: 1 / 2; order: 3; min-height: 140px; }
+    .panel-property-2 { grid-column: 2 / 3; order: 4; min-height: 140px; }
+    .panel-property-3 { grid-column: 1 / 3; order: 5; min-height: 110px; }
+    .ig-chip          { grid-column: 1 / 3; order: 6; justify-self: end; }
   }
   @media (max-width: 380px) {
     .hero { padding: 1.5rem 0.875rem 2rem; }
     .panel { padding: 1.25rem; }
-    .panel-name { min-height: 220px; }
+    .panel-name { min-height: 200px; }
   }
 
   /* ==================== ABOUT ==================== */
@@ -650,7 +688,7 @@
       transition-duration: 0.001ms !important;
       scroll-behavior: auto !important;
     }
-    .panel, .about-photo, .about-body, .sale-card, .testimonial-quote, .contact { opacity: 1; transform: none; }
+    .panel, .ig-chip, .about-photo, .about-body, .sale-card, .testimonial-quote, .contact { opacity: 1; transform: none; }
     .hero-video { display: none; }
   }
 </style>
@@ -661,6 +699,14 @@
 
   <!-- ==================== HERO COLLAGE ==================== -->
   <section class="hero" aria-label="Introduction">
+
+    <video class="hero-video" autoplay muted loop playsinline preload="metadata"
+           poster="/media/gwyneth-hero-poster.jpg" aria-hidden="true">
+      <source src="/media/gwyneth-hero.webm" type="video/webm">
+      <source src="/media/gwyneth-hero.mp4" type="video/mp4">
+    </video>
+    <div class="hero-tint" aria-hidden="true"></div>
+
     <div class="collage">
 
       <a href="#about" class="panel panel-name" data-stagger="0">
@@ -671,28 +717,20 @@
         </div>
       </a>
 
-      <a href="https://www.instagram.com/helfinagwyn/" target="_blank" rel="noopener" class="panel panel-headshot" data-stagger="1" aria-label="Visit Gwyneth on Instagram">
-        <video class="hero-video" autoplay muted loop playsinline preload="metadata"
-               poster="/media/gwyneth-hero-poster.jpg" aria-hidden="true">
-          <source src="/media/gwyneth-hero.webm" type="video/webm">
-          <source src="/media/gwyneth-hero.mp4" type="video/mp4">
-        </video>
-        <span class="panel-overlay" aria-hidden="true"></span>
-        <span class="panel-small-label">@helfinagwyn</span>
-      </a>
+      <a href="https://www.instagram.com/helfinagwyn/" target="_blank" rel="noopener" class="ig-chip" data-stagger="1" aria-label="Visit Gwyneth on Instagram">@helfinagwyn</a>
 
-      <a href="#recent-sales" class="panel panel-property-1" data-stagger="2" aria-label="See recent sales">
-        <!-- Replace with property photo -->
-        <span class="panel-small-label">Recent Sales</span>
-      </a>
-
-      <div class="panel panel-tagline" data-stagger="3">
+      <div class="panel panel-tagline" data-stagger="2">
         <div>
           <div class="meta">Jefferson Parish &middot; Greater New Orleans</div>
           <div class="meta" style="margin-top:0.5rem;">First-time buyers &middot; Investors &middot; Luxury</div>
           <a href="tel:+15044629772" class="phone">(504) 462-9772</a>
         </div>
       </div>
+
+      <a href="#recent-sales" class="panel panel-property-1" data-stagger="3" aria-label="See recent sales">
+        <!-- Replace with property photo -->
+        <span class="panel-small-label">Recent Sales</span>
+      </a>
 
       <a href="https://www.realtor.com/realestateagents/67bdd40f433b9d223975459c" target="_blank" rel="noopener" class="panel panel-property-2" data-stagger="4" aria-label="View Realtor.com profile">
         <!-- Replace with property photo -->
@@ -894,10 +932,13 @@
 <script>
   (function() {
     var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // Phones get poster-through-glass instead of live video: multiple
+    // backdrop-filter tiles over a playing video is GPU-heavy on mobile.
+    var isPhone = window.matchMedia('(max-width: 767px)').matches;
 
-    // Reduced-motion: fully unload the hero video so only the poster shows (no autoplay, no download).
+    // Reduced-motion or phone: fully unload the hero video so only the poster shows (no autoplay, no download).
     var heroVideo = document.querySelector('.hero-video');
-    if (heroVideo && prefersReduced) {
+    if (heroVideo && (prefersReduced || isPhone)) {
       try { heroVideo.pause(); } catch (e) {}
       while (heroVideo.firstChild) { heroVideo.removeChild(heroVideo.firstChild); }
       heroVideo.removeAttribute('autoplay');
@@ -906,14 +947,14 @@
     }
 
     if (prefersReduced || !('IntersectionObserver' in window)) {
-      document.querySelectorAll('.panel, .about-photo, .about-body, .sale-card, .testimonial-quote, .contact').forEach(function(el) {
+      document.querySelectorAll('.panel, .ig-chip, .about-photo, .about-body, .sale-card, .testimonial-quote, .contact').forEach(function(el) {
         el.classList.add('in');
       });
       return;
     }
 
     // Hero panels: staggered fade-in on load
-    var panels = document.querySelectorAll('.panel');
+    var panels = document.querySelectorAll('.panel, .ig-chip');
     panels.forEach(function(p) {
       var delay = parseInt(p.getAttribute('data-stagger') || '0', 10) * 150;
       setTimeout(function() { p.classList.add('in'); }, 100 + delay);
